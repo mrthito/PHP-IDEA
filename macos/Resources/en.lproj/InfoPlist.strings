@@ -1,0 +1,3 @@
+/* Dock, Finder, and the application menu use this name instead of Lithe.app. */
+CFBundleDisplayName = "PHP Idea";
+CFBundleName = "PHP Idea";

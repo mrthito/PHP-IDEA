@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Lithe</string>
+	<string>PHP Idea</string>
     <key>CFBundleExecutable</key>
     <string>Lithe</string>
     <key>CFBundleIconFile</key>
@@ -66,6 +66,8 @@
     <string>Fonts</string>
     <key>LSMinimumSystemVersion</key>
     <string>13.0</string>
+    <key>LSHasLocalizedDisplayName</key>
+    <true/>
     <key>LitheGitHubOAuthClientID</key>
     <string>Ov23li60nlOOHwDY3MO6</string>
     <key>NSHighResolutionCapable</key>

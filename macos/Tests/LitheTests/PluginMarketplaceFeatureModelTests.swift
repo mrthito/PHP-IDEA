@@ -360,7 +360,7 @@ struct PluginMarketplaceFeatureModelTests {
             statusMessage: "Enabled",
             marketplace: PluginMarketplaceProvenance(
                 sourceID: PluginMarketplaceSource.officialID,
-                sourceName: "Lithe",
+                sourceName: "PHP Idea",
                 repository: "https://github.com/Lithe-IDEA/Lithe-IDEA",
                 archiveSHA256: String(repeating: "1", count: 64),
                 contentDigest: String(repeating: "2", count: 64),

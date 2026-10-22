@@ -108,7 +108,7 @@ test("taskbar title shows project and active file, then project only, without du
     document.body.append(container);
     root = await renderHost(container);
     // No project and no open file: keep the bundled product name.
-    expect(appliedTitles).toEqual(["Lithe"]);
+    expect(appliedTitles).toEqual(["PHP Idea"]);
 
     // Project open, editor area empty: project name only.
     await act(async () => {

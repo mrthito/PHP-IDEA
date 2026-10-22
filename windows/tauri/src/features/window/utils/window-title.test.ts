@@ -97,7 +97,7 @@ describe("composeWindowTitle", () => {
   test("falls back to the bundled product name without a project", () => {
     expect(composeWindowTitle(null, "a.ts")).toBe("a.ts");
     expect(composeWindowTitle(null, null)).toBe(DEFAULT_WINDOW_TITLE);
-    expect(composeWindowTitle(undefined, undefined)).toBe("Lithe");
+    expect(composeWindowTitle(undefined, undefined)).toBe("PHP Idea");
   });
 
   test("drops a blank project label instead of leaving an empty leading segment", () => {

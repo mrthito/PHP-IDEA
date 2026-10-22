@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="./macos/Resources/AppIcon.png" width="112" alt="Lithe app icon">
+  <img src="./macos/Resources/AppIcon.png" width="112" alt="PHP Idea app icon">
 
-  <h1>Lithe</h1>
+  <h1>PHP Idea</h1>
 
   <p><strong>A low-memory IntelliJ IDEA alternative for Java development and AI collaboration</strong></p>
 
@@ -201,7 +201,7 @@ flowchart LR
 <details>
 <summary><strong>Develop Lithe</strong></summary>
 
-Development and CI use Swift 6.3.3, pinned in `.swift-version`, with Xcode 26.6. Running the complete test suite requires Xcode; basic SwiftPM builds only need matching Command Line Tools. Developers using Xcode 27 may also build locally; the macOS 27 SDK compatibility path is detected by the build scripts. `Package.swift` keeps its Swift 6.2 manifest API minimum; this does not select the compiler version.
+Development and CI use Swift 6.3.3, pinned in `.swift-version`, with Xcode 26.6. Running the complete test suite requires Xcode; basic SwiftPM builds only need matching Command Line Tools. Developers using Xcode 27 may also build locally; the macOS 27 SDK compatibility path is detected by the build scripts. Local Xcode 26+ installs also need Apple's Metal toolchain (`xcodebuild -downloadComponent MetalToolchain`) because SwiftTerm compiles `Shaders.metal` at build time. `Package.swift` keeps its Swift 6.2 manifest API minimum; this does not select the compiler version.
 
 Run the development build from the repository root:
 

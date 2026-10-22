@@ -12,14 +12,14 @@ struct AgentWelcomeView: View {
                     .font(LitheTheme.uiFont(size: 19, weight: .semibold))
                     .foregroundStyle(LitheTheme.primaryText)
                     .fixedSize(horizontal: false, vertical: true)
-                section("Lithe Agent") {
+                section("PHP Idea Agent") {
                     HStack(spacing: 14) {
                         HStack(spacing: 6) {
                             brand("Claude")
                             brand("Codex")
                         }
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Welcome to Lithe Agent")
+                            Text("Welcome to PHP Idea Agent")
                                 .font(LitheTheme.uiFont(size: 13, weight: .medium))
                                 .foregroundStyle(LitheTheme.primaryText)
                             Text("Collaborate with Claude and Codex to ask questions, run tasks, and review code changes.")

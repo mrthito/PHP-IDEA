@@ -1,9 +1,10 @@
 import { getBufferById } from "@/features/editor/utils/buffer-index";
 import { isVirtualContent, type PaneContent } from "@/features/panes/types/pane-content.types";
+import { PRODUCT_DISPLAY_NAME } from "@/platform/product-identity";
 import { getProjectDisplayLabel, type ProjectDisplayLabelSource } from "./project-display-label";
 
 /** Fallback title mirroring the bundled window title before a project opens. */
-export const DEFAULT_WINDOW_TITLE = "Lithe";
+export const DEFAULT_WINDOW_TITLE = PRODUCT_DISPLAY_NAME;
 
 /** IntelliJ-style separator between the project and file segments of the window title. */
 const TITLE_SEGMENT_SEPARATOR = " – ";

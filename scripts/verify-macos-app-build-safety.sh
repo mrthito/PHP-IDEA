@@ -45,6 +45,33 @@ for packaging_script in scripts/package-app.sh scripts/preview.sh; do
     fi
 done
 
+if ! /usr/bin/grep -Fq -- '.build/artifacts/sparkle' scripts/embed-sparkle.sh; then
+    print -u2 -- "embed-sparkle.sh must locate Sparkle under .build/artifacts"
+    exit 1
+fi
+if ! /usr/bin/grep -Fq -- '.build/*/artifacts/sparkle' scripts/embed-sparkle.sh; then
+    print -u2 -- "embed-sparkle.sh must locate Sparkle under .build/<triple>/artifacts"
+    exit 1
+fi
+if ! /usr/bin/grep -Fq -- 'LSHasLocalizedDisplayName' macos/Resources/Info.plist; then
+    print -u2 -- "Info.plist must set LSHasLocalizedDisplayName so Dock uses CFBundleDisplayName"
+    exit 1
+fi
+if ! /usr/bin/grep -Fq -- 'CFBundleDisplayName' scripts/preview.sh; then
+    print -u2 -- "preview.sh must name the preview bundle from CFBundleDisplayName"
+    exit 1
+fi
+for localization in en.lproj zh-Hans.lproj; do
+    if [[ ! -f "macos/Resources/$localization/InfoPlist.strings" ]]; then
+        print -u2 -- "Missing $localization/InfoPlist.strings for the Dock display name"
+        exit 1
+    fi
+    if ! /usr/bin/grep -Fq -- 'CFBundleDisplayName' "macos/Resources/$localization/InfoPlist.strings"; then
+        print -u2 -- "$localization/InfoPlist.strings must localize CFBundleDisplayName"
+        exit 1
+    fi
+done
+
 temporary_directory=$(mktemp -d "${TMPDIR:-/tmp}/lithe-build-info-verification.XXXXXX")
 trap 'rm -rf -- "$temporary_directory"' EXIT
 test_plist="$temporary_directory/Info.plist"

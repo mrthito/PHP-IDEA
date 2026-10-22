@@ -72,7 +72,7 @@ final class MacPluginMarketplaceService: PluginMarketplaceServicing {
     static var officialSource: PluginMarketplaceSource {
         PluginMarketplaceSource(
             id: PluginMarketplaceSource.officialID,
-            name: "Lithe",
+            name: ProductIdentity.displayName,
             input: officialIndexURL,
             indexURL: officialIndexURL,
             repository: officialRepository,

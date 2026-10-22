@@ -1,4 +1,5 @@
 import AppKit
+import LitheModuleAPI
 import SwiftUI
 
 struct WelcomeView: View {
@@ -48,7 +49,7 @@ struct WelcomeView: View {
             HStack(spacing: 11) {
                 LitheIcons.appLogo(size: 28)
                 VStack(alignment: .leading, spacing: 0) {
-                    Text("Lithe")
+                    Text(ProductIdentity.displayName)
                         .font(LitheTheme.uiFont(size: 13, weight: .regular))
                         .foregroundStyle(textColor)
                     Text(updateChecker.versionDescription)

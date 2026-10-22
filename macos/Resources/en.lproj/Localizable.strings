@@ -1639,8 +1639,12 @@
 "Set the custom Agent's executable in the panel settings." = "Set the custom Agent's executable in Settings > AI > Agents.";
 "Fetch this Agent's local configuration in the panel settings." = "Fetch this Agent's local configuration in Settings > AI > Agents.";
 "Use an Agent in your project" = "Use an Agent in your project";
-"Lithe Agent" = "Lithe Agent";
-"Welcome to Lithe Agent" = "Welcome to Lithe Agent";
+"Lithe Agent" = "PHP Idea Agent";
+"PHP Idea Agent" = "PHP Idea Agent";
+"Welcome to Lithe Agent" = "Welcome to PHP Idea Agent";
+"Welcome to PHP Idea Agent" = "Welcome to PHP Idea Agent";
+"PHP Idea" = "PHP Idea";
+"Welcome to PHP Idea" = "Welcome to PHP Idea";
 "Collaborate with Claude and Codex to ask questions, run tasks, and review code changes." = "Collaborate with Claude and Codex to ask questions, run tasks, and review code changes.";
 "Claude Agent" = "Claude Agent";
 "More Agents…" = "More Agents…";

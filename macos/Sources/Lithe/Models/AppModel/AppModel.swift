@@ -731,7 +731,7 @@ final class AppModel: ObservableObject, Identifiable, UnsavedDocumentHandling {
     }
 
     var projectName: String {
-        workspaceURL?.lastPathComponent ?? "Lithe"
+        workspaceURL?.lastPathComponent ?? ProductIdentity.displayName
     }
 
     var languageServerStatusMessage: String {

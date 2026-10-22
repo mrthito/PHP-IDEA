@@ -165,7 +165,7 @@ public enum BuiltInPluginCatalog {
     public static let hostVersion = PluginVersion(major: 0, minor: 3, patch: 0)
     public static let vendor = PluginVendor(
         id: "dev.lithe",
-        displayName: "Lithe",
+        displayName: ProductIdentity.displayName,
         signatureRequirement: .sameTeamAsHost
     )
 

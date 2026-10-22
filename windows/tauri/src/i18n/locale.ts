@@ -1,3 +1,4 @@
+import { PRODUCT_DISPLAY_NAME, PRODUCT_WELCOME_TITLE } from "@/platform/product-identity";
 import { modularLoggingEnglish, modularLoggingChinese } from "./modular-logging";
 import { panelParityEnglish, panelParityChinese } from "./panel-parity";
 import { javaEntryChinese, javaEntryEnglish } from "./java-entry-creation";
@@ -2026,7 +2027,7 @@ const catalogs = {
     "workbench.renderErrorDescription": "Retry to restore this surface without restarting Lithe.",
     "welcome.openProject": "Open Project",
     "welcome.recentProjects": "Recent Projects",
-    "welcome.title": "Welcome to Lithe",
+    "welcome.title": PRODUCT_WELCOME_TITLE,
     "welcome.projects": "Projects",
     "welcome.searchProjects": "Search projects",
     "welcome.clone": "Clone",
@@ -4801,7 +4802,7 @@ const catalogs = {
     "onboarding.versionInstalled": "Lithe {version} is installed.",
     "onboarding.whatsNewTitle": "What's new in Lithe {version}",
     "onboarding.releaseNotesDescription": "The latest changes, improvements, and fixes.",
-    "onboarding.welcomeTitle": "Welcome to Lithe",
+    "onboarding.welcomeTitle": PRODUCT_WELCOME_TITLE,
     "onboarding.welcomeDescription": "Lithe {version}. Choose a few defaults before you start.",
     "onboarding.releasedDate": "Released {date}",
     "onboarding.keybindingPreset": "Keybinding preset",
@@ -6838,7 +6839,7 @@ const catalogs = {
     "workbench.renderErrorDescription": "可以重试恢复此界面，无需重启 Lithe。",
     "welcome.openProject": "打开项目",
     "welcome.recentProjects": "最近项目",
-    "welcome.title": "欢迎使用 Lithe",
+    "welcome.title": `欢迎使用 ${PRODUCT_DISPLAY_NAME}`,
     "welcome.projects": "项目",
     "welcome.searchProjects": "搜索项目",
     "welcome.clone": "克隆",
@@ -9488,7 +9489,7 @@ const catalogs = {
     "onboarding.versionInstalled": "已安装 Lithe {version}。",
     "onboarding.whatsNewTitle": "Lithe {version} 新增功能",
     "onboarding.releaseNotesDescription": "最新变更、改进和修复。",
-    "onboarding.welcomeTitle": "欢迎使用 Lithe",
+    "onboarding.welcomeTitle": `欢迎使用 ${PRODUCT_DISPLAY_NAME}`,
     "onboarding.welcomeDescription": "Lithe {version}。开始前先选择几个默认设置。",
     "onboarding.releasedDate": "发布于 {date}",
     "onboarding.keybindingPreset": "快捷键预设",

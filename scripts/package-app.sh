@@ -154,6 +154,16 @@ cp -R "$ROOT_DIR/macos/Resources/Fonts" "$APP_DIR/Contents/Resources/Fonts"
 cp -R "$ROOT_DIR/.artifacts/editor/macos" "$APP_DIR/Contents/Resources/MonacoEditor"
 zsh "$ROOT_DIR/scripts/package-macos-localizations.sh" \
     "$ROOT_DIR/macos/Resources" "$APP_DIR/Contents/Resources"
+channel="${LITHE_UPDATE_CHANNEL:-stable}"
+[[ "$channel" == preview ]] && channel=autobuild
+if [[ "$channel" == autobuild ]]; then
+    for localization in en.lproj zh-Hans.lproj; do
+        strings="$APP_DIR/Contents/Resources/$localization/InfoPlist.strings"
+        [[ -f "$strings" ]] || continue
+        /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName Lithe-Dev" "$strings"
+        /usr/libexec/PlistBuddy -c "Set :CFBundleName Lithe-Dev" "$strings"
+    done
+fi
 codesign --force --deep --sign "$SIGNING_IDENTITY" "$APP_DIR"
 
 echo "$APP_DIR"

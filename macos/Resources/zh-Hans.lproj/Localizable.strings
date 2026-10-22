@@ -299,7 +299,9 @@
 "History" = "历史";
 "Show Local History…" = "查看本地历史…";
 "Show Project Local History…" = "查看项目本地历史…";
-"Welcome to Lithe" = "欢迎使用 Lithe";
+"Welcome to Lithe" = "欢迎使用 PHP Idea";
+"Welcome to PHP Idea" = "欢迎使用 PHP Idea";
+"PHP Idea" = "PHP Idea";
 "Projects" = "项目";
 "Clone" = "克隆";
 "Open" = "打开";
@@ -3030,8 +3032,10 @@
 
 "Start the session by sending a message" = "发送消息以开始会话";
 "Use an Agent in your project" = "在项目中使用 Agent";
-"Lithe Agent" = "Lithe Agent";
-"Welcome to Lithe Agent" = "欢迎使用 Lithe Agent";
+"Lithe Agent" = "PHP Idea Agent";
+"PHP Idea Agent" = "PHP Idea Agent";
+"Welcome to Lithe Agent" = "欢迎使用 PHP Idea Agent";
+"Welcome to PHP Idea Agent" = "欢迎使用 PHP Idea Agent";
 "Collaborate with Claude and Codex to ask questions, run tasks, and review code changes." = "与 Claude、Codex 协作，提问、执行任务并审查代码修改。";
 "Claude Agent" = "Claude Agent";
 "More Agents…" = "更多 Agent…";

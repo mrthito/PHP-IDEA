@@ -1,6 +1,7 @@
 import AppKit
 import Combine
 import LitheLocalHistoryModule
+import LitheModuleAPI
 import SwiftUI
 
 enum LitheWindowID {
@@ -292,13 +293,13 @@ private struct ActiveSessionChrome: View {
 
     private var windowTitle: String? {
         if windowLayout == .standalone {
-            return session.standaloneFileURL?.lastPathComponent ?? "Lithe"
+            return session.standaloneFileURL?.lastPathComponent ?? ProductIdentity.displayName
         }
         if windowLayout == .workspace {
-            return session.workspaceURL?.lastPathComponent ?? "Lithe"
+            return session.workspaceURL?.lastPathComponent ?? ProductIdentity.displayName
         }
         return String(
-            localized: "Welcome to Lithe",
+            localized: String.LocalizationValue(ProductIdentity.welcomeTitle),
             bundle: .main,
             locale: session.settings.language.locale
         )

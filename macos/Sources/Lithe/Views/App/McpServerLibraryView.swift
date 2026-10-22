@@ -1,3 +1,4 @@
+import LitheModuleAPI
 import SwiftUI
 
 /// Settings › AI › MCP: the discovered server library plus the project grant.
@@ -224,7 +225,7 @@ private struct McpServerRowView: View {
                     .font(LitheTheme.uiFont(size: 12.5, weight: .medium))
                     .foregroundStyle(LitheTheme.primaryText)
                 if row.isLitheRegistration {
-                    badge("Lithe", color: LitheTheme.accent)
+                    badge(LocalizedStringKey(ProductIdentity.displayName), color: LitheTheme.accent)
                 } else if row.isProjectOnly {
                     badge("Project", color: LitheTheme.secondaryText)
                 }

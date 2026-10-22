@@ -1,3 +1,4 @@
+import LitheModuleAPI
 import SwiftUI
 
 /// Status bar line:column indicator. Visually unchanged from the plain text
@@ -81,7 +82,7 @@ struct MemoryUsageStatusView: View {
                 .frame(height: 1)
 
             VStack(spacing: 0) {
-                memoryMetric("Lithe", value: memoryUsageMonitor.litheText)
+                memoryMetric(ProductIdentity.displayName, value: memoryUsageMonitor.litheText)
                 memoryMetric(
                     "Language servers",
                     value: memoryUsageMonitor.languageServerProcessCount == 0

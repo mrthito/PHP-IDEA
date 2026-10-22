@@ -1,3 +1,4 @@
+import { PRODUCT_DISPLAY_NAME } from "@/platform/product-identity";
 import { UpdateChannelSelector } from "./update-channel-selector";
 import { getInstalledVersionLabel } from "../lib/update-channel";
 import SettingsSelect from "@/ui/settings-select";
@@ -545,7 +546,7 @@ function UpdatesPanel() {
       <SettingsGroup title={t("settings.mac.softwareUpdate")}>
         <UpdateChannelSelector />
         <SettingsRow
-          label="Lithe"
+          label={PRODUCT_DISPLAY_NAME}
           description={t("settings.mac.currentVersion", {
             version: getInstalledVersionLabel(appVersion || "…", t),
           })}

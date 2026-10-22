@@ -1,4 +1,5 @@
 import AppKit
+import LitheModuleAPI
 import SwiftUI
 
 private let litheProcessLaunchDate = Date()
@@ -90,6 +91,7 @@ final class LitheAppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        NSApp.mainMenu?.items.first?.title = ProductIdentity.displayName
         Task { @MainActor [weak self] in await self?.sweepEarlierInstances() }
     }
 

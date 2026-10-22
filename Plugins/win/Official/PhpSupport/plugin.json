@@ -4,7 +4,7 @@
   "displayName": "PHP Support",
   "description": "PHP language support with Intelephense, Composer scripts and PHPUnit. Requires locally installed PHP, Bun and Node.js.",
   "version": "1.0.0",
-  "publisher": "Lithe",
+  "publisher": "PHP Idea",
   "categories": [
     "Language"
   ],

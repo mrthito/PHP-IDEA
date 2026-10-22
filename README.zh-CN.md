@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="./macos/Resources/AppIcon.png" width="112" alt="Lithe 应用图标">
+  <img src="./macos/Resources/AppIcon.png" width="112" alt="PHP Idea 应用图标">
 
-  <h1>Lithe</h1>
+  <h1>PHP Idea</h1>
 
   <p><strong>面向 Java 开发与 AI 协作的低内存占用 IntelliJ IDEA 替代品</strong></p>
 
@@ -201,7 +201,7 @@ flowchart LR
 <details>
 <summary><strong>如何开发</strong></summary>
 
-开发环境和 CI 使用 `.swift-version` 固定的 Swift 6.3.3 与 Xcode 26.6。运行完整测试需要 Xcode；基础 SwiftPM 构建只需要匹配的 Command Line Tools。使用 Xcode 27 的开发者也可以在本地构建，构建脚本会自动识别 macOS 27 SDK 的兼容路径。`Package.swift` 仍保留 Swift 6.2 的 manifest API 下限，这不会选择编译器版本。
+开发环境和 CI 使用 `.swift-version` 固定的 Swift 6.3.3 与 Xcode 26.6。运行完整测试需要 Xcode；基础 SwiftPM 构建只需要匹配的 Command Line Tools。使用 Xcode 27 的开发者也可以在本地构建，构建脚本会自动识别 macOS 27 SDK 的兼容路径。本机 Xcode 26 及以上还需要单独安装 Apple 的 Metal 工具链（`xcodebuild -downloadComponent MetalToolchain`），因为 SwiftTerm 会在编译阶段处理 `Shaders.metal`。`Package.swift` 仍保留 Swift 6.2 的 manifest API 下限，这不会选择编译器版本。
 
 在项目根目录运行开发版本：
 

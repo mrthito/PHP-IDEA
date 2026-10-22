@@ -139,11 +139,32 @@ macOS 13 SDK 上补充缺失的 `NSView.clipsToBounds` 声明，SDK 14 及更高
 SDK 27。升级工具链不改变应用的 Swift 5 语言模式、测试的 Swift 6 语言模式
 或 macOS 13 最低运行版本。
 
+Xcode 26 起 `metal` 不再随 Xcode 默认装好。本机用 Xcode 27 构建时，
+SwiftTerm 会在编译阶段处理 `Shaders.metal`；缺这个组件时，SwiftPM 只会在
+几分钟后报 `CompileMetalFile ... failed with a nonzero exit code`。
+`scripts/build-macos.sh` 在调用 `swift build` 前探测 `xcrun metal`：若输出
+`missing Metal Toolchain`，立刻提示运行
+`xcodebuild -downloadComponent MetalToolchain`，而不是继续编到 SwiftTerm
+才失败。正确做法是开发者本机装一次该组件，并让 `xcrun metal` 解析到
+系统挂载的 Metal 工具链；不要在 `~/Library/Developer/Toolchains` 里再做
+一个指向 cryptex 挂载点的 `Metal.xctoolchain` 符号链接。那个挂载路径会
+变，XCBuild 却会把绝对路径写进 `.build`，下次就会报
+`unable to spawn process .../Metal.xctoolchain/usr/bin/metal`。构建脚本
+把 Metal 组件版本和用户工具链是否存在写进 Swift 工具链戳：组件变化、
+用户工具链被删，或缓存里还留着失效路径时，会先 `swift package clean`。
+不要在构建脚本里自动下载该组件（约 800 MB，且依赖网络）。错误做法是把
+这个探测放进 `verify-macos-app-build-safety.sh`：那个脚本还会被 Linux 上的
+`verify-service-boundaries.sh` 调用。CI 继续使用已包含该组件的 Xcode 26.6
+镜像，不把本机缺组件当成 CI 基线变化。
+
 部分新版 SwiftPM 会把 `--triple` 的默认产品放在 `.build/out/Products`，
 不再自动隔离 arm64 与 x86_64。构建脚本先读取 `swift build --show-bin-path`
 判断实际布局：只有检测到这个新版布局时才使用 `.build/<triple>` 作为独立
 scratch path；Xcode 26.6/Swift 6.3.3 继续使用原来的默认路径。插件构建同时
 兼容旧版的 `Modules/` 目录和新版直接放在产品目录中的模块文件。
+`scripts/embed-sparkle.sh` 必须同时认 `.build/artifacts/sparkle/` 和
+`.build/<triple>/artifacts/sparkle/`：只认旧路径时，Xcode 27 本机预览会在
+Swift 已经编完后报 `Resolve the pinned Sparkle Swift package before packaging`。
 
 路径分类器先决定 PR 需要哪些验证。普通 `macos/Sources/` 改动由 Swift 测试
 负责完整编译，不再重复生成两个 DMG。资源、SwiftPM 图、Rust bridge、平台

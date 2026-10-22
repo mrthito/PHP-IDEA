@@ -21,7 +21,11 @@ mkdir -p "$PREVIEW_ROOT"
 # that process's cached images and can let missing-image placeholders cover the
 # project tree and tool windows.
 INSTANCE_DIR=$(mktemp -d "$PREVIEW_ROOT/instance.XXXXXX")
-APP_DIR="$INSTANCE_DIR/Lithe.app"
+# Dock hover uses the .app filename unless Launch Services has a localized
+# display name. Preview is not installed into /Applications, so name the
+# bundle after CFBundleDisplayName. Sparkle archives stay Lithe.app.
+DISPLAY_NAME=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleDisplayName' "$ROOT_DIR/macos/Resources/Info.plist")
+APP_DIR="$INSTANCE_DIR/${DISPLAY_NAME}.app"
 WATCHER_OWNS_INSTANCE_CLEANUP=false
 cleanup_instance_dir() {
     [[ -n "${INSTANCE_DIR:-}" && -d "$INSTANCE_DIR" ]] || return 0

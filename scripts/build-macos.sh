@@ -84,26 +84,70 @@ if [[ -n "$TRIPLE" ]]; then
 fi
 SWIFT_ARGS+=(-Xlinker -force_load -Xlinker "$RUST_LIBRARY")
 
+# Xcode 26+ ships `metal` as a stub. SwiftTerm compiles Shaders.metal during
+# the product build, so a missing Metal toolchain becomes an opaque
+# CompileMetalFile failure minutes later. Fail here with the install command.
+metal_probe_status=0
+metal_probe_output="$(/usr/bin/xcrun metal --help 2>&1)" || metal_probe_status=$?
+if [[ "$metal_probe_status" -ne 0 ]] && print -r -- "$metal_probe_output" | /usr/bin/grep -Fq -- 'missing Metal Toolchain'; then
+    print -u2 -- "Xcode's Metal toolchain is not installed. SwiftTerm compiles Shaders.metal during the macOS build."
+    print -u2 -- "Install it once with: xcodebuild -downloadComponent MetalToolchain"
+    print -u2 -- "Then rerun the macOS build."
+    exit 1
+fi
+
+user_metal_toolchain="$HOME/Library/Developer/Toolchains/Metal.xctoolchain"
+user_metal_compiler="$user_metal_toolchain/usr/bin/metal"
+if [[ -x "$user_metal_compiler" ]]; then
+    USER_METAL_TOOLCHAIN_STATE="present"
+elif [[ -e "$user_metal_toolchain" || -L "$user_metal_toolchain" ]]; then
+    USER_METAL_TOOLCHAIN_STATE="broken"
+else
+    USER_METAL_TOOLCHAIN_STATE="absent"
+fi
+METAL_COMPONENT_IDENTITY="$(
+    /usr/bin/xcodebuild -showComponent metalToolchain 2>/dev/null \
+        | /usr/bin/grep -E '^(Build Version|Status|Toolchain Identifier):' \
+        || true
+)"
+
 # SwiftPM can reuse binary modules produced by an incompatible compiler after
 # an Xcode/toolchain upgrade. Keep the full compiler identity, including its
 # build number, and let SwiftPM clean build products while retaining checkouts.
+# Also stamp the Metal component and any user Metal.xctoolchain: XCBuild caches
+# that absolute metal path, and a removed or remounted toolchain then fails
+# with "unable to spawn process .../metal (No such file or directory)".
 SWIFT_TOOLCHAIN_VERSION="$(swift --version)"
 if [[ -n "${SWIFT_EXEC:-}" ]]; then
     SWIFT_TOOLCHAIN_VERSION+=$'\n'"$("$SWIFT_EXEC" --version)"
 fi
+SWIFT_TOOLCHAIN_VERSION+=$'\n'"Metal component:"$'\n'"$METAL_COMPONENT_IDENTITY"
+SWIFT_TOOLCHAIN_VERSION+=$'\n'"User Metal toolchain: $USER_METAL_TOOLCHAIN_STATE"
 SWIFT_TOOLCHAIN_STAMP="$ROOT_DIR/.build/.lithe-swift-toolchain"
 PREVIOUS_SWIFT_TOOLCHAIN_VERSION=""
 if [[ -f "$SWIFT_TOOLCHAIN_STAMP" ]]; then
     PREVIOUS_SWIFT_TOOLCHAIN_VERSION="$(<"$SWIFT_TOOLCHAIN_STAMP")"
 fi
+needs_swift_clean=false
 if [[ -d "$ROOT_DIR/.build" && "$PREVIOUS_SWIFT_TOOLCHAIN_VERSION" != "$SWIFT_TOOLCHAIN_VERSION" ]]; then
+    needs_swift_clean=true
     if [[ -n "$PREVIOUS_SWIFT_TOOLCHAIN_VERSION" ]]; then
-        print -- "Swift compiler changed; cleaning incompatible SwiftPM build products."
+        print -- "Swift or Metal toolchain changed; cleaning incompatible SwiftPM build products."
     else
         # Existing caches predate this stamp, so their compiler is unknown.
         print -- "Swift compiler cache version is unknown; cleaning SwiftPM build products once."
     fi
-    swift package clean
+elif [[ "$USER_METAL_TOOLCHAIN_STATE" != "present" ]] \
+    && /usr/bin/grep -Rql -- 'Library/Developer/Toolchains/Metal.xctoolchain' "$ROOT_DIR/.build" 2>/dev/null; then
+    needs_swift_clean=true
+    print -- "Stale Metal user-toolchain path in SwiftPM build cache; cleaning."
+fi
+if [[ "$needs_swift_clean" == true ]]; then
+    SWIFT_CLEAN_ARGS=()
+    if (( idx = ${SWIFT_ARGS[(I)--scratch-path]} )); then
+        SWIFT_CLEAN_ARGS+=(--scratch-path "${SWIFT_ARGS[idx+1]}")
+    fi
+    swift package clean "${SWIFT_CLEAN_ARGS[@]}"
 fi
 mkdir -p "$ROOT_DIR/.build"
 # Record only after cleaning succeeds; failed builds can safely resume with
